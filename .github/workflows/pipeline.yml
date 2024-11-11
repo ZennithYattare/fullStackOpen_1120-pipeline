@@ -44,15 +44,13 @@ jobs:
      working-directory: ./backend
      run: npm run start:test &
 
-   - name: Start frontend
-     working-directory: ./frontend
-     run: npm run start &
-
    - name: Run e2e tests
      uses: cypress-io/github-action@v5
      with:
-      command: cd frontend && npm run test:e2e
+      command: npm run test:e2e
+      start: npm run start
       wait-on: http://localhost:3000
+      working-directory: ./frontend
 
  tag_release:
   needs: [deployment_pipeline]
