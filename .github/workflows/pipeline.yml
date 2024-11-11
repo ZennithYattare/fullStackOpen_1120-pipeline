@@ -42,7 +42,7 @@ jobs:
 
    - name: Start backend
      working-directory: ./backend
-     run: npm run start:test
+     run: npm run start:test &
 
    - name: Wait for backend to be ready
      run: npx wait-on http://localhost:3003
@@ -51,7 +51,7 @@ jobs:
      uses: cypress-io/github-action@v5
      with:
       command: cd frontend && npm run test:e2e
-      start: cd frontend && npm run start
+      start: cd frontend && npm run start &
       wait-on: http://localhost:3000
 
  tag_release:
