@@ -47,8 +47,11 @@ jobs:
    - name: Run e2e tests
      uses: cypress-io/github-action@v5
      with:
+      env:
+        PORT: 3001
       command: npm run test:e2e
       start: npm run start
+      wait-on: http://localhost:3001
       working-directory: ./frontend
 
  tag_release:
