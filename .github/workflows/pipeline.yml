@@ -47,12 +47,11 @@ jobs:
    - name: Wait for backend to be ready
      run: npx wait-on http://localhost:3003
 
-   - name: e2e tests
+   - name: Run e2e tests
      uses: cypress-io/github-action@v5
-     working-directory: ./frontend
      with:
-      command: npm run test:e2e
-      start: npm run start
+      command: cd frontend && npm run test:e2e
+      start: cd frontend && npm run start
       wait-on: http://localhost:3000
 
  tag_release:
