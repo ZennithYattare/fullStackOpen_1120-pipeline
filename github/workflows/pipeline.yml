@@ -1,0 +1,82 @@
+name: Deployment pipeline
+
+env:
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+  PORT: ${{ secrets.PORT }}
+  SECRET: ${{ secrets.SECRET }}
+
+on:
+ push:
+  branches:
+   - main
+  pull_request:
+   branches: [main]
+   types: [opened, synchronize]
+
+jobs:
+ deployment_pipeline:
+  runs-on: ubuntu-20.04
+  steps:
+   - uses: actions/checkout@v4
+
+   - uses: actions/setup-node@v4
+     with:
+      node-version: "20"
+
+   - name: Install frontend dependencies
+     working-directory: ./frontend
+     run: npm install
+
+   - name: Lint frontend
+     working-directory: ./frontend
+     run: npm run eslint
+
+   - name: Build frontend
+     working-directory: ./frontend
+     run: npm run build
+
+   - name: Install backend dependencies
+     working-directory: ./backend
+     run: npm install
+
+   - name: Start backend
+     working-directory: ./backend
+     run: npm run start:test
+
+   - name: Wait for backend to be ready
+     run: npx wait-on http://localhost:3003
+
+   - name: Start frontend
+     working-directory: ./frontend
+     run: npm run start
+
+   - name: Wait for frontend to be ready
+     run: npx wait-on http://localhost:3000
+
+   - name: e2e tests
+     working-directory: ./frontend
+     uses: cypress-io/github-action@v5
+     with:
+      command: npm run test:e2e
+
+ tag_release:
+  needs: [deployment_pipeline]
+  runs-on: ubuntu-20.04
+  steps:
+   - uses: actions/checkout@v4
+
+     id: check_skip
+     run: |
+      if echo "${LAST_MSG}" | grep -q "#skip"; then
+        echo "SKIP_DEPLOY=true" >> $GITHUB_ENV
+      else
+        echo "SKIP_DEPLOY=false" >> $GITHUB_ENV
+      fi
+   - name: Bump version and push tag
+     if: ${{ github.event_name == 'push' }}
+     uses: anothrNick/github-tag-action@f278d49d30cdd8775cc3e7dd00b5ee11686ee297
+     env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      DEFAULT_BUMP: patch
+      RELEASE_BRANCHES: master
