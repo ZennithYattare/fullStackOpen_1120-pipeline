@@ -1,0 +1,11 @@
+@baseUrl=http://localhost:3003
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphbmVkb2UiLCJpZCI6IjY0NzczNzUwNDIwYWQ4NjMzOGZhNWM2OCIsImlhdCI6MTY4NjU4NDExMiwiZXhwIjoxNjkxNzY4MTEyfQ.VoWWaZLQ8C-JIqdOkhCjZ78ndlHusrQ0qX9_fZz1M-E
+@blogId=64774124d8804e54e9fe9e7f
+
+POST {{baseUrl}}/api/blogs/{{blogId}}/comments
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphbmVkb2UiLCJpZCI6IjY0NzczNzUwNDIwYWQ4NjMzOGZhNWM2OCIsImlhdCI6MTY4NjU4NDExMiwiZXhwIjoxNjkxNzY4MTEyfQ.VoWWaZLQ8C-JIqdOkhCjZ78ndlHusrQ0qX9_fZz1M-E
+
+{
+    "content": "This is a comment"
+}

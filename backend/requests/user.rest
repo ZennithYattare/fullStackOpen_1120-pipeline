@@ -1,0 +1,20 @@
+@baseUrl=http://localhost:3003
+
+@userId=64773750420ad86338fa5c68
+
+# GET request for all users in the database
+GET {{baseUrl}}/api/users HTTP/1.1
+
+###
+# GET request for a single user
+GET {{baseUrl}}/api/users/{{userId}} HTTP/1.1
+
+###
+POST {{baseUrl}}/api/users HTTP/1.1
+content-type: application/json
+
+{
+    "username": "janedoe",
+    "name": "Jane Doe",
+    "password": "password123"
+}

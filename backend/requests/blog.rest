@@ -1,0 +1,43 @@
+@baseUrl=http://localhost:3003
+@userId=
+@blogId=64774124d8804e54e9fe9e7f
+
+# GET request for all blogs in the database
+GET  {{baseUrl}}/api/blogs HTTP/1.1
+
+###
+# GET request for a single blog in the database
+GET  {{baseUrl}}/api/blogs/{{blogId}} HTTP/1.1
+
+###
+# GET request for the info of the database
+GET  {{baseUrl}}/info HTTP/1.1
+
+###
+# POST request to create a blog in the database
+POST {{baseUrl}}/api/blogs HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImphbmVkb2UiLCJpZCI6IjY0NzYzNjE4MmI2ZjNjNjgyZjg2ZGMyMSIsImlhdCI6MTY4NTUzMTM3OH0.BToXyaq6ErBDzRBadPeqgiqWC7LQ7E3-lfHdTSoD0Xk
+
+{
+    "title": "Angular",
+    "author": "Jane Doe",
+    "url": "https://angular.io",
+    "likes": 15
+}
+
+###
+# PUT request to update a person's number in the database
+PUT {{baseUrl}}/api/persons/{{userId}} HTTP/1.1
+content-type: application/json
+
+{
+    "name": "aaaa",
+    "number": "323-6423122"
+}
+
+###
+# DELETE request to delete a blog from the database
+DELETE {{baseUrl}}/api/blogs/{{blogId}} HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG5kb2UiLCJpZCI6IjY0Nzc2OGI0N2ZkMzc2M2JkMzQ5ODk5YSIsImlhdCI6MTY4NTU0NzE5NywiZXhwIjoxNjkwNzMxMTk3fQ.YpyuYrO5g6NupyXuDg6kxxKYWwsr7e10mmVkbxWSTqw
