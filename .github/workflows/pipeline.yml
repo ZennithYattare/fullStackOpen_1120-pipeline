@@ -42,13 +42,13 @@ jobs:
 
    - name: Start backend
      working-directory: ./backend
+     env:
+      PORT: 3003
      run: npm run start:test &
 
    - name: Run e2e tests
      uses: cypress-io/github-action@v5
      with:
-      env:
-        PORT: 3001
       command: npm run test:e2e
       start: npm run start
       wait-on: http://localhost:3001
