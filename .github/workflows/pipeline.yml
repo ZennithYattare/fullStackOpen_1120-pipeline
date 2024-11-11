@@ -48,8 +48,8 @@ jobs:
      run: npx wait-on http://localhost:3003
 
    - name: e2e tests
-     working-directory: ./frontend
      uses: cypress-io/github-action@v5
+     working-directory: ./frontend
      with:
       command: npm run test:e2e
       start: npm run start
