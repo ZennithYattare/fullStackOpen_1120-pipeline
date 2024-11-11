@@ -134,6 +134,7 @@ describe("Blog app", () => {
 			cy.contains("Like").click();
 			cy.wait(500);
 			cy.contains("Blogs").click();
+			cy.wait(500);
 			cy.contains("Create new blog").click();
 			cy.get("#blogFormTitle").type("Test Blog Title 2");
 			cy.get("#blogFormAuthor").type("Test Blog Author 2");
@@ -147,6 +148,7 @@ describe("Blog app", () => {
 			cy.contains("Like").click();
 			cy.wait(500);
 			cy.contains("Blogs").click();
+			cy.wait(500);
 			cy.contains("Create new blog").click();
 			cy.get("#blogFormTitle").type("Test Blog Title 3");
 			cy.get("#blogFormAuthor").type("Test Blog Author 3");
