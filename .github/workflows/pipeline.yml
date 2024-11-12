@@ -10,7 +10,7 @@ on:
  push:
   branches:
    - main
-  pull_request:
+ pull_request:
    branches: [main]
    types: [opened, synchronize]
 
@@ -42,6 +42,7 @@ jobs:
 
    - name: Start backend
      working-directory: ./backend
+     # NOTE: PORT env for backend  
      env:
       PORT: 3003
      run: npm run start:test &
